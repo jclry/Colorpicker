@@ -1,0 +1,224 @@
+/* 页面基础样式 */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    transition: background-color 0.3s;
+}
+
+/* 颜色选择器输入区域布局 */
+.color-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    padding: 4px;
+    border-radius: 6px;
+    transition: box-shadow 0.2s ease;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* 选中状态样式 */
+.color-input.focused {
+    box-shadow: inset 0 0 0 1px rgba(56, 107, 255, 1);
+}
+
+.color-container {
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.20), 0px 8px 20px 0px rgba(0, 0, 0, 0.12);
+}
+
+/* 颜色预览触发器样式 */
+.color-trigger {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+/* 添加透明度背景棋盘格 */
+.color-trigger::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+                      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, #ccc 75%),
+                      linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 8px 8px;
+    background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+}
+
+/* 颜色预览分隔效果 */
+.color-trigger::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--preview-color);
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+/* 颜色预览实际效果 */
+.color-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--preview-color);
+    opacity: var(--preview-opacity);
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+/* 主输入框样式 */
+.color-input > input[type="text"] {
+    padding: 0;
+    width: 100px;
+    height: 22px;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: text;
+    font-size: 14px;
+    caret-color: rgba(56, 107, 255, 1);
+}
+
+/* 颜色选择下拉面板样式 */
+.color-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: white;
+    border-radius: 8px;
+    padding: 12px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 下拉面板激活状态 - 这个是关键 */
+.color-dropdown.active {
+    display: block;
+}
+
+/* 颜色选择区域布局 */
+.color-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+/* 颜色选择画布样式 */
+#colorCanvas {
+    border-radius: 4px;
+    cursor: crosshair;
+}
+
+/* 颜色选择指示器样式 */
+.color-picker-indicator {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 色相滑块样式 */
+.hue-slider {
+    width: 100%;
+    height: 12px;
+    position: relative;
+    background: linear-gradient(to right,
+        #ff0000 0%,
+        #ffff00 17%,
+        #00ff00 33%,
+        #00ffff 50%,
+        #0000ff 67%,
+        #ff00ff 83%,
+        #ff0000 100%
+    );
+    border-radius: 6px;
+}
+
+/* 透明度滑块样式 */
+.alpha-slider {
+    width: 100%;
+    height: 12px;
+    position: relative;
+    border-radius: 6px;
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+                      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, #ccc 75%),
+                      linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 8px 8px;
+    background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+}
+
+/* 滑块通用样式 */
+.slider-thumb {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -2px);
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 透明度滑块覆盖层 */
+.alpha-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
+
+/* 颜色格式区域样式 */
+.color-format {
+    width: 100%; /* 与滑块宽度一致 */
+}
+
+/* Dropdown 内的输入框样式 */
+.color-dropdown .format-input[type="text"] {
+    width: 200px;
+    height: 28px;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.02);
+    box-sizing: border-box;
+    transition: all 0.2s;
+}
+
+/* Dropdown 内的输入框焦点状态 */
+.color-dropdown .format-input[type="text"]:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 1px rgba(56, 107, 255, 1);
+    background: white;
+}
+
+/* Dropdown 内的输入框占位符文本样式 */
+.color-dropdown .format-input[type="text"]::placeholder {
+    color: rgba(0, 0, 0, 0.25);
+} 

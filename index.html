@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>颜色选择器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="color-container">
+        <div class="color-picker">
+            <div class="color-input">
+                <div class="color-trigger" id="colorTrigger">
+                    <div class="color-preview" id="colorPreview"></div>
+                </div>
+                <input type="text" id="colorText" value="#ffffff">
+                <div class="color-dropdown" id="colorDropdown">
+                    <div class="color-area">
+                        <canvas id="colorCanvas" width="200" height="150"></canvas>
+                        <div class="color-picker-indicator" id="pickerIndicator"></div>
+                        <div class="hue-slider">
+                            <div class="slider-thumb" id="hueThumb"></div>
+                        </div>
+                        <div class="alpha-slider">
+                            <div class="alpha-overlay" id="alphaOverlay"></div>
+                            <div class="slider-thumb" id="alphaThumb"></div>
+                        </div>
+                        <div class="color-format">
+                            <input type="text" class="format-input" id="formatInput" placeholder="支持 Hex 和 RGBA">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
